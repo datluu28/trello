@@ -11,6 +11,8 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { mockData } from "~/apis/mock-data"
+import { capitalizeFirstLetter } from "~/utils/formatter";
 
 const STYLE = {
   color: "primary.main",
@@ -26,7 +28,7 @@ const STYLE = {
   },
 };
 
-function BoardBar() {
+function BoardBar({ board }) {
   return (
     <Box
       px={2}
@@ -43,11 +45,16 @@ function BoardBar() {
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <Chip sx={STYLE} icon={<DashboardIcon />} label="Đạt đz" clickable />
+        <Chip 
+          sx={STYLE} 
+          icon={<DashboardIcon />} 
+          label={board?.title} 
+          clickable 
+        />
         <Chip
           sx={STYLE}
           icon={<VpnLockIcon />}
-          label="Public/Private Workspace"
+          label={capitalizeFirstLetter(board?.type)}
           clickable
         />
         <Chip

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Card from './Card/Card'
 
 
-function ListCards() {
+function ListCards({ cards }) {
   return (
     <Box sx={{
         display:'flex',
@@ -18,7 +18,7 @@ function ListCards() {
         '&::-webkit-scrollbar-thump:hover': {backgroundColor: "#bfc2cf"},
         maxHeight: (theme) => `calc(${theme.custom.contentHeight} - ${theme.spacing(5)} - ${theme.custom.columnHeaderHeight} - ${theme.custom.columnFooterHeight})`,
       }}>
-      <Card />
+      {cards?.map(card => <Card key={card._id} card={card} />)}
       </Box>
   )
 }

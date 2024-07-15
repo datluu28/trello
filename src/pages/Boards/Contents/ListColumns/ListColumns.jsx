@@ -1,28 +1,47 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Column from './Column/Column'
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import Button from '@mui/material/Button';
+import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
 
-function ListColumns() {
+function ListColumns({ columns }) {
   return (
-    <Box
-        sx={{
-          width: "100%",
-          height: "100%",
-          bgcolor:'inherit',
-          overflowX:'auto',
-          overflowY:'hidden',
-          display:'flex',
-          '&::-webkit-scrollbar-track': { m:2},
-        }}
-      >
-        <Column />
-        <Column />
-        <Box sx={{
-          
-        }}>
-
-        </Box>
+    <SortableContext items={columns?.map(c => c._id)} strategy={horizontalListSortingStrategy}>
+      <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            bgcolor:'inherit',
+            overflowX:'auto',
+            overflowY:'hidden',
+            display:'flex',
+            '&::-webkit-scrollbar-track': { m:2},
+          }}>
+          {columns.map(column => (<Column key={column._id} column={column} />))}
+          {/* Add new column */}
+          <Box sx={{
+            minWidth:'200px',
+            maxWidth:'200px',
+            mx:2,
+            borderRadius:'6px',
+            height:'fit-content',
+            bgcolor:'#ffffff3d'
+          }}>
+            <Button 
+            startIcon={<CreateNewFolderIcon />}
+            sx={{ 
+              color:'white',
+              width:'100%',
+              justifyContent:'flex-start',
+              pl:2.5,
+              py:1,
+            }}> 
+              Add new card 
+            </Button>
+          </Box>
       </Box>
+    </SortableContext>
   )
 }
 
